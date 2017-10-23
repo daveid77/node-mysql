@@ -83,7 +83,7 @@ function whatBuy() {
           // console.log('res[0].stock_quantity: ' + res[0].stock_quantity);
           // console.log('res[0].price: ' + res[0].price);
         if (answer.buyQuantity > res[0].stock_quantity) {
-          console.log(colors.bgRed('Insufficient quantity!'));
+          console.log(colors.bgRed('Insufficient quantity in stock!'));
           console.log('Item #' + answer.buyId + ' only has ' + res[0].stock_quantity + ' remaining.');
           connection.end();
           return;
