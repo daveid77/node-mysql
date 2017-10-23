@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
-var Table = require('cli-table');
+var Table = require('cli-table2');
 var colors = require('colors');
 
 // item_id
@@ -26,7 +26,7 @@ connection.connect(function(err) {
 
 // table package 
 var table = new Table({
-    head: ['item_id', 'product_name', 'product_sales', 'department_name', 'price', 'stock_quantity'], 
+    head: [colors.grey('item_id'), 'product_name', 'product_sales', 'department_name', 'price', 'stock_quantity'], 
     colWidths: [10, 30, 16, 20, 10, 18],
     chars: { 'top': '═', 'top-mid': '╤', 'top-left': '╔', 'top-right': '╗', 'bottom': '═', 'bottom-mid': '╧', 'bottom-left': '╚', 'bottom-right': '╝', 'left': '║', 'left-mid': '╟', 'mid': '─', 'mid-mid': '┼', 'right': '║', 'right-mid': '╢', 'middle': '│' }
 });
