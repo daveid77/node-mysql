@@ -22,7 +22,7 @@ VALUES
     ("Coffee Table", 0, "Children", 144.99, 10),
     ("Toothpaste", 0, "Personal Hygeine", 4.19, 48),
     ("Comb", 0, "Personal Hygeine", 1.49, 78),
-    ("Flat Ccreen TV", 0, "Electronics", 349.99, 7),
+    ("Flat Screen TV", 0, "Electronics", 349.99, 7),
     ("Bluetooth Speaker", 0, "Electronics", 44.95, 35),
     ("Handheld Whiteboard", 0, "Office Supplies", 7.39, 62),
     ("Wire Mesh Desk Organizer", 0, "Office Supplies", 18.50, 4);
