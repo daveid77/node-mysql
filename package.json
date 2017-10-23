@@ -1,0 +1,23 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "Week Six Homework Part 2: [Node.js & MySQL Assignment](http://ucb.bootcampcontent.com/UCB-Coding-Bootcamp/09-11-2017-UCB-Class-Repository-FSF-FT/blob/master/06-week/homework/part-2/homework_instructions.md).",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dbmarshall/node-mysql.git"
+  },
+  "author": "David Morse",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dbmarshall/node-mysql/issues"
+  },
+  "homepage": "https://github.com/dbmarshall/node-mysql#readme",
+  "dependencies": {
+    "inquirer": "^3.3.0",
+    "mysql": "^2.15.0"
+  }
+}
