@@ -18,7 +18,7 @@ INSERT INTO products
 VALUES
     ("Monopoly", 0, "Games", 14.89, 7),
     ("Scrabble", 0, "Games", 9.99, 6),
-    ("Futon", 0, "Furniture", 277.00, 2),
+    ("Futon", 0, "Furniture", 277.50, 2),
     ("Coffee Table", 0, "Children", 144.99, 10),
     ("Toothpaste", 0, "Personal Hygeine", 4.19, 48),
     ("Comb", 0, "Personal Hygeine", 1.49, 78),
