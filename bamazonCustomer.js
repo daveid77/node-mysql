@@ -105,13 +105,31 @@ function placeOrder(itemId,newQuant,totalCost) {
     // console.log('newQuant: ' + newQuant);
     // console.log('totalCost: ' + totalCost);
             // UPDATE products SET stock_quantity = 0 WHERE item_id = 3
-  var query = 'UPDATE products SET stock_quantity = ' + newQuant + ' WHERE item_id = ' + itemId;
-      connection.query(query, function(err, res) {
-          if (err) throw err;
-          console.log('Your total cost will be $' + totalCost + '.');
-          productsDisplay();
-          connection.end();
-      });
+  var query = 'UPDATE products SET ? WHERE ?';
+  connection.query(query,
+      [
+        {
+          stock_quantity: 0
+        },
+        {
+          item_id: 3
+        }
+      ], function(err, res) {
+      if (err) throw err;
+      console.log('Your total cost will be $' + totalCost + '.');
+      productsDisplay();
+      connection.end();
+  });
+
+  // The query below works, but is not sanitized... 
+  // var query = 'UPDATE products SET stock_quantity = ' + newQuant + ' WHERE item_id = ' + itemId;
+  // connection.query(query, function(err, res) {
+  //     if (err) throw err;
+  //     console.log('Your total cost will be $' + totalCost + '.');
+  //     productsDisplay();
+  //     connection.end();
+  // });
+
 }
 
 
