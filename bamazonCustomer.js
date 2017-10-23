@@ -90,7 +90,7 @@ function whatBuy() {
         } 
         console.log('Placing your order now...');
         newQuantity = res[0].stock_quantity - answer.buyQuantity;
-        totalCost = res[0].price * answer.buyQuantity;
+        totalCost = parseFloat(res[0].price * answer.buyQuantity).toFixed(2);
           // console.log('newQuantity: ' + newQuantity);
           // console.log('totalCost: ' + totalCost);
         placeOrder(answer.buyId, newQuantity, totalCost);
@@ -109,10 +109,10 @@ function placeOrder(itemId,newQuant,totalCost) {
   connection.query(query,
       [
         {
-          stock_quantity: 0
+          stock_quantity: newQuant
         },
         {
-          item_id: 3
+          item_id: itemId
         }
       ], function(err, res) {
       if (err) throw err;

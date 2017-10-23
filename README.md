@@ -1,4 +1,4 @@
-# Bamazon (Node.js & MySQL)
+# Bamazon
 
 Week Six Homework Part 2: [Node.js & MySQL Assignment](http://ucb.bootcampcontent.com/UCB-Coding-Bootcamp/09-11-2017-UCB-Class-Repository-FSF-FT/blob/master/06-week/homework/part-2/homework_instructions.md).
 
