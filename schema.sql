@@ -23,9 +23,12 @@ VALUES
     ("Toothpaste", 0, "Personal Hygeine", 4.19, 48),
     ("Comb", 0, "Personal Hygeine", 1.49, 78),
     ("Flat Ccreen TV", 0, "Electronics", 349.99, 7),
-    ("Bluetooth Speaker", 0, "Electronics", 44.96=5, 35),
+    ("Bluetooth Speaker", 0, "Electronics", 44.95, 35),
     ("Handheld Whiteboard", 0, "Office Supplies", 7.39, 62),
     ("Wire Mesh Desk Organizer", 0, "Office Supplies", 18.50, 4);
 
 SELECT * FROM products;
+
+-- UPDATE products SET stock_quantity = 0 WHERE item_id = 3;
+-- SELECT * FROM products;
 
