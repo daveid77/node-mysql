@@ -116,7 +116,7 @@ function placeOrder(itemId,newQuant,totalCost) {
         }
       ], function(err, res) {
       if (err) throw err;
-      console.log('Your total cost will be $' + totalCost + '.');
+      console.log(colors.green('Your total cost will be $' + totalCost + '.'));
       productsDisplay();
       connection.end();
   });
