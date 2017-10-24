@@ -15,7 +15,6 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
   if (err) throw err;
-    // console.log('connected, whoop!');
   managerOptions();
 });
 
@@ -42,7 +41,7 @@ function managerOptions() {
           break;
 
         case "View Low Inventory":
-          viewInventory();
+          viewLowInventory();
           break;
 
         case "Add to Inventory":
@@ -62,14 +61,12 @@ function viewProducts() {
 
     // table npm package 
     var table = new Table({
-        // style: {'padding-left':0, 'padding-right':0, head:[], border:[]},
         head: [colors.green('item_id'), colors.green('product_name'), colors.grey('product_sales'), colors.green('department_name'), colors.green('price'), colors.green('stock_quantity')], 
         colWidths: [10, 30, 16, 20, 10, 18],
         chars: { 'top': '═', 'top-mid': '╤', 'top-left': '╔', 'top-right': '╗', 'bottom': '═', 'bottom-mid': '╧', 'bottom-left': '╚', 'bottom-right': '╝', 'left': '║', 'left-mid': '╟', 'mid': '─', 'mid-mid': '┼', 'right': '║', 'right-mid': '╢', 'middle': '│' }
     });
 
     for (var i = 0; i < res.length; i++) {
-      // console.log(res[i].item_id + ' | ' + res[i].product_name + ' | ' + res[i].product_sales + ' | ' + res[i].department_name + ' | ' + res[i].price + ' | ' + res[i].stock_quantity); 
       table.push(
           [res[i].item_id, res[i].product_name, colors.grey(res[i].product_sales), res[i].department_name, res[i].price, res[i].stock_quantity]
       );
@@ -77,22 +74,91 @@ function viewProducts() {
 
     console.log(table.toString());
 
-    if (!transacted) {
-      whatBuy();
+  });
+  connection.end();
+}
+
+function viewLowInventory() {
+  var query = 'SELECT * FROM products WHERE stock_quantity BETWEEN ? AND ?';
+  connection.query(query, [0, 4], function(err, res) {
+
+    // table npm package 
+    var table = new Table({
+        head: [colors.green('item_id'), colors.green('product_name'), colors.grey('product_sales'), colors.green('department_name'), colors.green('price'), colors.red('stock_quantity')], 
+        colWidths: [10, 30, 16, 20, 10, 18],
+        chars: { 'top': '═', 'top-mid': '╤', 'top-left': '╔', 'top-right': '╗', 'bottom': '═', 'bottom-mid': '╧', 'bottom-left': '╚', 'bottom-right': '╝', 'left': '║', 'left-mid': '╟', 'mid': '─', 'mid-mid': '┼', 'right': '║', 'right-mid': '╢', 'middle': '│' }
+    });
+
+    for (var i = 0; i < res.length; i++) {
+      table.push(
+          [res[i].item_id, res[i].product_name, colors.grey(res[i].product_sales), res[i].department_name, res[i].price, res[i].stock_quantity]
+      );
     }
 
+    console.log(table.toString());
+
   });
-  // connection.end();
-}
-
-function viewInventory() {
-  console.log(colors.red('viewInventory'));
   connection.end();
 }
 
-function addInventory() {
-  console.log(colors.red('addInventory'));
-  connection.end();
+function addInventory() {inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'addProduct',
+        message: 'Product Name'
+      },
+      {
+        type: 'input',
+        name: 'addDepartment',
+        message: 'Department Name'
+      },
+      {
+        type: 'input',
+        name: 'addPrice',
+        message: 'Price'
+      },
+      {
+        type: 'input',
+        name: 'addQuantity',
+        message: 'Stock Quantity'
+      }
+    ])
+    .then(function(answer) {
+
+      var query = 'INSERT INTO products SET ?';
+      connection.query(query,
+        {
+          product_name: answer.addProduct,
+          product_sales: 0,
+          department_name: answer.addDepartment,
+          price: answer.addPrice,
+          stock_quantity: answer.addQuantity
+        }, function(err, res) {
+
+          var query2 = 'SELECT * FROM products';
+          connection.query(query2, function(err2, res2) {
+
+            // table npm package 
+            var table = new Table({
+                head: [colors.green('item_id'), colors.green('product_name'), colors.grey('product_sales'), colors.green('department_name'), colors.green('price'), colors.green('stock_quantity')], 
+                colWidths: [10, 30, 16, 20, 10, 18],
+                chars: { 'top': '═', 'top-mid': '╤', 'top-left': '╔', 'top-right': '╗', 'bottom': '═', 'bottom-mid': '╧', 'bottom-left': '╚', 'bottom-right': '╝', 'left': '║', 'left-mid': '╟', 'mid': '─', 'mid-mid': '┼', 'right': '║', 'right-mid': '╢', 'middle': '│' }
+            });
+
+            for (var i = 0; i < res2.length; i++) {
+              table.push(
+                  [res2[i].item_id, res2[i].product_name, colors.grey(res2[i].product_sales), res2[i].department_name, res2[i].price, res2[i].stock_quantity]
+              );
+            }
+
+            console.log(table.toString());
+
+          });
+          connection.end();
+
+      });
+    });
 }
 
 function addProduct() {
