@@ -17,6 +17,7 @@ npm install
 
 ## Misc Notes
 
+* [Video of Working Apps](screen-capture-of-working-apps_1000mbps.mp4)
 * Apps set to run once each, not loop through Inquirer prompts over and over, but code written so that would be possibly by simply calling primary functions at ends of each behavior process.
 * Did not make it to Challenge #3: Supervisor View.
 
