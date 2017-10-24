@@ -15,10 +15,10 @@ npm install
 * `node bamazonCustomer.js`
 * `node bamazonManager.js` 
 
-## Shortcomings
+## Misc Notes
 
+* Apps set to run once each, not loop through Inquirer prompts over and over, but code written so that would be possibly by simply calling primary functions at ends of each behavior process.
 * Did not make it to Challenge #3: Supervisor View.
-* Challenge #2: Manager View "Add Inventory" is not completed.  Kind of made a mess of it trying to figure out how to get the current stock quantity to add to user inputted quantity to add. 
 
 ## Author
 
