@@ -13,14 +13,12 @@ npm install
 ## Available Node Commands
 
 * `node bamazonCustomer.js`
-
-## Little Extras
-
-* 
+* `node bamazonManager.js` 
 
 ## Shortcomings
 
-*  
+* Did not make it to Challenge #3: Supervisor View.
+* Challenge #2: Manager View "Add Inventory" is not completed.  Kind of made a mess of it trying to figure out how to get the current stock quantity to add to user inputted quantity to add. 
 
 ## Author
 
