@@ -57,8 +57,32 @@ function managerOptions() {
 }
 
 function viewProducts() {
-  console.log(colors.red('viewProducts'));
-  connection.end();
+  var query = 'SELECT * FROM products';
+  connection.query(query, function(err, res) {
+
+    // table npm package 
+    var table = new Table({
+        // style: {'padding-left':0, 'padding-right':0, head:[], border:[]},
+        head: [colors.green('item_id'), colors.green('product_name'), colors.grey('product_sales'), colors.green('department_name'), colors.green('price'), colors.green('stock_quantity')], 
+        colWidths: [10, 30, 16, 20, 10, 18],
+        chars: { 'top': '═', 'top-mid': '╤', 'top-left': '╔', 'top-right': '╗', 'bottom': '═', 'bottom-mid': '╧', 'bottom-left': '╚', 'bottom-right': '╝', 'left': '║', 'left-mid': '╟', 'mid': '─', 'mid-mid': '┼', 'right': '║', 'right-mid': '╢', 'middle': '│' }
+    });
+
+    for (var i = 0; i < res.length; i++) {
+      // console.log(res[i].item_id + ' | ' + res[i].product_name + ' | ' + res[i].product_sales + ' | ' + res[i].department_name + ' | ' + res[i].price + ' | ' + res[i].stock_quantity); 
+      table.push(
+          [res[i].item_id, res[i].product_name, colors.grey(res[i].product_sales), res[i].department_name, res[i].price, res[i].stock_quantity]
+      );
+    }
+
+    console.log(table.toString());
+
+    if (!transacted) {
+      whatBuy();
+    }
+
+  });
+  // connection.end();
 }
 
 function viewInventory() {
