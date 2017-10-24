@@ -36,7 +36,7 @@ function managerOptions() {
       }
     ])
     .then(function(answer) {
-        // console.log(colors.green(answer.action));
+
       switch (answer.action) {
         case "View Products for Sale":
           viewProducts();
@@ -47,18 +47,21 @@ function managerOptions() {
           break;
 
         case "Add to Inventory":
-          viewProducts(addInv);
+          addInv = true;
+          viewProducts();
           break;
 
         case "Add New Product":
           addProduct();
           break;
       }
+
     });
 }
 
 
-function viewProducts(addInv) {
+function viewProducts() {
+
   var query = 'SELECT * FROM products';
   connection.query(query, function(err, res) {
 
@@ -79,10 +82,12 @@ function viewProducts(addInv) {
 
     if (addInv) {
       addInventory();
+    } else {
+      connection.end();
     }
+    addInv = false; 
 
   });
-  connection.end();
 }
 
 
@@ -111,6 +116,7 @@ function viewLowInventory() {
 
 
 function addInventory() {
+
   inquirer
     .prompt([
       {
@@ -137,25 +143,32 @@ function addInventory() {
       }
     ])
     .then(function(answer) {
-        console.log(answer.inventoryId + ' | ' + answer.inventoryQuantity);
 
-      getStockQuantity(answer.inventoryId);
+      inventoryId = answer.inventoryId; 
+      inventoryQuantity = answer.inventoryQuantity; 
+
+      getStockQuantity(inventoryId, inventoryQuantity);
 
     });
+
 }
-function getStockQuantity(inventoryId) {
+
+
+function getStockQuantity(inventoryId, inventoryQuantity) {
+
   var query = 'SELECT stock_quantity FROM products WHERE item_id = ?';
-  connection.query(query, answer.inventoryId, function(err, res) {
-      console.log('answer.inventoryId: ' + answer.inventoryId);
-      console.log('res[0].stock_quantity: ' + res[0].stock_quantity);
-      console.log('answer.inventoryQuantity: ' + answer.inventoryQuantity);
-    newQuantity = parseInt(res[0].stock_quantity + answer.inventoryQuantity);
-      console.log('newQuantity: ' + newQuantity);
+  connection.query(query, inventoryId, function(err, res) {
+
+    newQuantity = parseInt(res[0].stock_quantity) + parseInt(inventoryQuantity);
+
+    updateStockQuantity(inventoryId, newQuantity);
+
   });
-  updateStockQuantity(inventoryId, newQuantity);
 } 
 
+
 function updateStockQuantity(inventoryId, newQuantity) {
+
   var query = 'UPDATE products SET ? WHERE ?';
   connection.query(query,
     [
@@ -165,9 +178,7 @@ function updateStockQuantity(inventoryId, newQuantity) {
       {
         item_id: inventoryId
       }
-    ], function(err2, res) {
-
-      console.log(res)
+    ], function(err, res) {
 
     // cli-table2 npm package
     var table = new Table({
@@ -182,14 +193,15 @@ function updateStockQuantity(inventoryId, newQuantity) {
       );
     }
 
-    console.log(table.toString());
-
   });
-  connection.end();
+
+  viewProducts();
+
 }
 
 
 function addProduct() {
+
   inquirer
     .prompt([
       {
@@ -248,6 +260,7 @@ function addProduct() {
 
       });
     });
+
 }
 
 
