@@ -48,17 +48,7 @@ function productsDisplay() {
 function whatBuy() {
   inquirer
     .prompt([
-      {
-        name: 'buyId',
-        type: 'input',
-        message: 'What is the "Item ID" of the product you would like to buy?',
-        validate: function(value) {
-          if (isNaN(value) === false) {
-            return true;
-          }
-          return 'Please, enter an "Item ID" from the left column.';
-        }
-      },
+      ,
       {
         name: 'buyQuantity',
         type: 'input',
@@ -68,7 +58,17 @@ function whatBuy() {
             return true;
           }
           return false;
+        {
+        name: 'buyId',
+        type: 'input',
+        message: 'What is the "Item ID" of the product you would like to buy?',
+        validate: function(value) {
+          if (isNaN(value) === false) {
+            return true;
+          }
+          return 'Please, enter an "Item ID" from the left column.';
         }
+      }}
       }
     ])
     .then(function(answer) {
